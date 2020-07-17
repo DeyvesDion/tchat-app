@@ -1,51 +1,57 @@
 <template>
-    <div class="container">
-        <form @submit.prevent="SingIn">
-            <label>
-                <p class="label-txt">VOTRE NOM</p>
-                <input type="text" class="input" required v-model="name" />
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </label>
-            <label>
-                <p class="label-txt">VOTRE EMAIL</p>
-                <input type="email" class="input" required v-model="email" />
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </label>
+    <div class="container" id="logreg-forms">
+        <form class="form-signin" @submit.prevent="SingIn">
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">
+                Inscription
+            </h1>
+            <input
+                type="text"
+                id="inputName"
+                class="form-control mb-2"
+                placeholder="Nom"
+                required
+                autofocus
+                v-model="name"
+            />
+            <input
+                type="email"
+                id="inputEmail"
+                class="form-control mb-2"
+                placeholder="Adresse mail "
+                required
+                v-model="email"
+            />
+            <input
+                type="password"
+                id="inputPassword"
+                class="form-control mb-2"
+                placeholder="Mot de passe"
+                required
+                v-model="password"
+            />
+            <input
+                type="password"
+                id="inputConfirmPassword"
+                class="form-control mb-2"
+                placeholder="Confirmer mot de passe"
+                v-model="confirmPassword"
+            />
 
-            <label>
-                <p class="label-txt">VOTRE MOT DE PASSE</p>
-                <input
-                    type="password"
-                    class="input"
-                    required
-                    v-model="password"
-                />
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </label>
-            <!-- <label>
-                <p class="label-txt">CONFIRMER VOTRE MOT DE PASSE</p>
-                <input
-                    type="password"
-                    class="input"
-                    v-model="confirmPassWord"
-                />
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </label> -->
-            <button type="submit">S'INSCRIRE</button>
-            <div>
-                <p class="mt-2">
-                    Déjà inscrit ?
-                    <router-link to="/register">Se connecter</router-link>
-                </p>
-            </div>
+            <button class="btn btn-success btn-block" type="submit">
+                <i class="fas fa-sign-in-alt"></i> S'inscrire
+            </button>
+            <hr />
+            <!-- <p>Don't have an account!</p>  -->
+            <p class="text-center">Déjà un coompte?</p>
+            <router-link to="/register">
+                <button
+                    type="button"
+                    id="btn-signup"
+                    class="btn btn-primary btn-block"
+                >
+                    Se connecter
+                </button>
+            </router-link>
         </form>
     </div>
 </template>
@@ -58,7 +64,7 @@ export default {
             name: "",
             email: "",
             password: "",
-            confirmPassWord: "",
+            confirmPassword: "",
         };
     },
     methods: {
@@ -69,88 +75,55 @@ export default {
                 .catch((error) => {
                     console.log(error);
                 });
+            this.name = "";
+            this.email = "";
+            this.password = "";
+            this.confirmPassword = "";
         },
     },
 };
 </script>
 
 <style scoped>
-body {
-    background: #c5e1a5;
+/* sign in FORM */
+#logreg-forms {
+    width: 412px;
+    margin: 10vh auto;
+    background-color: #f3f3f3;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-form {
-    width: 60%;
-    margin: 50px auto;
-    background: #efefef;
-    padding: 10px 120px 10px 120px;
-    text-align: center;
-    -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
-    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+#logreg-forms form {
+    width: 100%;
+    max-width: 410px;
+    padding: 15px;
+    margin: auto;
 }
-label {
-    display: block;
+#logreg-forms .form-control {
     position: relative;
-    margin: 40px 0px;
-}
-.label-txt {
-    position: absolute;
-    top: -1.6em;
+    box-sizing: border-box;
+    height: auto;
     padding: 10px;
-    font-family: sans-serif;
-    font-size: 0.8em;
-    letter-spacing: 1px;
-    color: rgb(120, 120, 120);
-    transition: ease 0.3s;
+    font-size: 16px;
 }
-.input {
-    width: 100%;
-    padding: 10px;
-    background: transparent;
-    border: none;
-    outline: none;
+#logreg-forms .form-control:focus {
+    z-index: 2;
 }
-
-.line-box {
-    position: relative;
-    width: 100%;
-    height: 2px;
-    background: #bcbcbc;
+#logreg-forms .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+#logreg-forms .form-signin input[type="password"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
-.line {
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    top: 0px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #8bc34a;
-    transition: ease 0.6s;
-}
+/* Mobile */
 
-.input:focus + .line-box .line {
-    width: 100%;
-}
-
-.label-active {
-    top: -3em;
-}
-
-button {
-    display: inline-block;
-    padding: 12px 24px;
-    background: rgb(220, 220, 220);
-    font-weight: bold;
-    color: rgb(120, 120, 120);
-    border: none;
-    outline: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: ease 0.3s;
-}
-
-button:hover {
-    background: #8bc34a;
-    color: #ffffff;
+@media screen and (max-width: 500px) {
+    #logreg-forms {
+        width: 300px;
+    }
 }
 </style>
